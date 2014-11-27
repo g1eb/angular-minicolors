@@ -34,7 +34,7 @@ angular.module('minicolors').directive('minicolors', ['minicolors', '$timeout', 
     priority: 1, //since we bind on an input element, we have to set a higher priority than angular-default input
     link: function(scope, element, attrs, ngModel) {
 
-      var inititalized = false;
+      var initialized = false;
 
       //gets the settings object
       var getSettings = function () {
@@ -71,15 +71,15 @@ angular.module('minicolors').directive('minicolors', ['minicolors', '$timeout', 
         // Create the new minicolors widget
         element.minicolors(settings);
 
-        // are we inititalized yet ?
+        // are we initialized yet ?
         //needs to be wrapped in $timeout, to prevent $apply / $digest errors
         //$scope.$apply will be called by $timeout, so we don't have to handle that case
-        if (!inititalized) {
+        if (!initialized) {
           $timeout(function() {
             var color = '#'+ngModel.$viewValue;
             element.minicolors('value', color);
           }, 0);
-          inititalized = true;
+          initialized = true;
           return;
         }
       };
