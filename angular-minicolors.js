@@ -60,6 +60,7 @@ angular.module('minicolors').directive('minicolors', ['minicolors', '$timeout', 
         }
         var settings = getSettings();
         settings.change = function (hex) {
+          if( !hex ) return;
           scope.$apply(function () {
             ngModel.$setViewValue(hex.replace(/#/g,''));
           });
@@ -74,7 +75,7 @@ angular.module('minicolors').directive('minicolors', ['minicolors', '$timeout', 
         // are we initialized yet ?
         //needs to be wrapped in $timeout, to prevent $apply / $digest errors
         //$scope.$apply will be called by $timeout, so we don't have to handle that case
-        if (!initialized) {
+        if (!initialized && ngModel.$viewValue) {
           $timeout(function() {
             var color = '#'+ngModel.$viewValue;
             element.minicolors('value', color);
